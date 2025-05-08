@@ -33,7 +33,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver) 
-        { playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
+        { 
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
             isOnGround = false; 
             playerAnim.SetTrigger("Jump_trig"); 
             dirtParticle.Stop(); 
@@ -42,8 +43,10 @@ public class PlayerController : MonoBehaviour
         } 
         else if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && !doubleJumpUsed) 
         { 
-            doubleJumpUsed = true; playerRb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse); 
-            playerAnim.Play("Running_Jump", 3, 0f); playerAudio.PlayOneShot(jumpSound, 1.0f); 
+            doubleJumpUsed = true; 
+            playerRb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse); 
+            playerAnim.Play("Running_Jump", 3, 0f); 
+            playerAudio.PlayOneShot(jumpSound, 1.0f); 
         }
 
         if (Input.GetKey(KeyCode.LeftShift))

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerControllerX : MonoBehaviour
 {
     public bool gameOver;
 
-    public float floatForce;
+    public float floatForce = 10f;
     private float gravityModifier = 1.5f;
     private Rigidbody playerRb;
 
@@ -22,6 +23,7 @@ public class PlayerControllerX : MonoBehaviour
     void Start()
     {
         Physics.gravity *= gravityModifier;
+        playerRb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
 
         // Apply a small upward force at the start of the game
@@ -57,7 +59,10 @@ public class PlayerControllerX : MonoBehaviour
             fireworksParticle.Play();
             playerAudio.PlayOneShot(moneySound, 1.0f);
             Destroy(other.gameObject);
-
+        }
+        if (other.gameObject.CompareTag("Ground") && !gameOver) 
+        {
+            playerRb.AddForce(Vector3.up * 5, ForceMode.Impulse);
         }
 
     }
